@@ -10,9 +10,10 @@ log = logging.getLogger("autocad_mcp")
 
 mcp = FastMCP("autocad")
 
-from . import tools_read  # noqa: E402
+from . import tools_draw, tools_read  # noqa: E402
 
 tools_read.register(mcp)
+tools_draw.register(mcp)
 
 
 def main() -> None:
