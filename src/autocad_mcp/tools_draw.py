@@ -43,6 +43,13 @@ def _finish(obj: Any, layer: str | None) -> str:
     return obj.Handle
 
 
+def add_polyline_raw(pts: list[tuple[float, float]], closed: bool, layer: str | None) -> str:
+    """Add a polyline without its own undo group (caller owns the group). Returns handle."""
+    obj = cad.with_retry(lambda: cad.get_modelspace().AddLightWeightPolyline(cad.to_flat_2d(pts)))
+    obj.Closed = bool(closed)
+    return _finish(obj, layer)
+
+
 def _check_layer(layer: str | None) -> None:
     if layer:
         cad.ensure_layer(layer)
@@ -73,9 +80,7 @@ def draw_polyline(points: list[list[float]], closed: bool = False,
     pts = _pts2d(points, 2)
     with cad.undo_group():
         _check_layer(layer)
-        obj = cad.with_retry(lambda: cad.get_modelspace().AddLightWeightPolyline(cad.to_flat_2d(pts)))
-        obj.Closed = bool(closed)
-        return _finish(obj, layer)
+        return add_polyline_raw(pts, closed, layer)
 
 
 def draw_rectangle(origin: list[float], width: float, height: float,

@@ -15,6 +15,10 @@ from . import tools_draw, tools_read  # noqa: E402
 tools_read.register(mcp)
 tools_draw.register(mcp)
 
+from .solar import tools_solar  # noqa: E402
+
+tools_solar.register(mcp)
+
 
 def main() -> None:
     log.info("Starting AutoCAD MCP server (stdio)")
