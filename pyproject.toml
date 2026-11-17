@@ -1,4 +1,4 @@
-﻿[project]
+[project]
 name = "autocad-mcp"
 version = "0.1.0"
 description = "MCP server for controlling AutoCAD via COM, with solar panel layout tools"

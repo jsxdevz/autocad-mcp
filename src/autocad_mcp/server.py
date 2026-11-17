@@ -10,6 +10,10 @@ log = logging.getLogger("autocad_mcp")
 
 mcp = FastMCP("autocad")
 
+from . import tools_read  # noqa: E402
+
+tools_read.register(mcp)
+
 
 def main() -> None:
     log.info("Starting AutoCAD MCP server (stdio)")
